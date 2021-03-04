@@ -39,3 +39,13 @@ gerardohuerta1705@gmail.com
 twitter: 
 
 https://twitter.com/RoblenHuerta
+
+Guide for users: 
+
+Execute FDD Script
+
+-Select Peaks using: "Ctrl + remain pressing left mouse button until draw a rectangle over the peak"
+-if you want delete the selection just press right mouse button
+-Finish Peack picking by pressing scroll mouse button. 
+
+Once done the peak selection the routine creates 3 new figure plots, and print the frequencies and modal shapes.  
