@@ -7,7 +7,8 @@ from multiprocessing import Process, Pipe
 def freq_Max(Rects, Freq, SVD):
     SV = SVD
     F = np.array(Freq, ndmin=2)
-    #print(F.shape)
+    print("Aqui es")
+    print(F.shape)
     N = len(Rects)
     V_X_Min = []
     V_X_Max = []
