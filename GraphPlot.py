@@ -335,8 +335,8 @@ class Mac3dplot:
         x3d, y3d = xm.ravel(), ym.ravel()           ### ravel aplana el arreglo volviendolo de 1-D
         top1 = np.identity(n=x2d.shape[0], dtype="float")
         for i in range(top1.shape[0]):
-            a1 = np.empty([12,1], dtype=complex)
-            a2 = np.empty([12, 1], dtype=complex)
+            a1 = np.empty([self.MS1.shape[0], 1], dtype=complex)
+            a2 = np.empty([self.MS2.shape[0], 1], dtype=complex)
             a1[:, 0] = self.MS1[:, i]    ### Se debe crear un array e indicarle los indices que debe ocupar (forma)
             a2[:, 0] = self.MS2[:, i]
             top1[i, i] = np.absolute(MF.MAC(a1, a2))
@@ -345,3 +345,63 @@ class Mac3dplot:
         width = depth = 0.5
         bottom = np.zeros_like(x3d)
         self.ax.bar3d(x3d, y3d, bottom, width, depth, top, shade=True, color='cyan')
+
+
+class EFDDPlot:
+    def __init__(self, nfig, sdof_t, h_cr, popt):   ###ms tienen que ser un numpy array vector fila
+        self.Nfig = nfig
+        self.SDOF_T = sdof_t
+        self.H_CROP = h_cr
+        self.POPT = popt
+        self.index1 = 0
+        self.Nmodes = len(self.SDOF_T)
+
+    def enhanced_plot(self):
+        plt.figure(self.Nfig)
+        self.ax1 = plt.subplot(1, 2, 1)
+        self.ax1.grid(b=True)
+        self.ax1.set_title("Sistema de un grado de libertad del modo:" + str(self.index1))
+        self.ax1.set_ylabel('A')
+        self.ax1.set_xlabel('Time')
+        self.ax1.plot(np.linspace(0, 1, len(self.SDOF_T[0])), self.SDOF_T[0].real)
+        self.ax2 = plt.subplot(1, 2, 2)
+        self.ax2.grid(b=True)
+        self.ax2.set_title("Aproximacion de la curva de Hilbert por Decremento logaritmico")
+        self.ax2.set_ylabel('A')
+        self.ax2.set_xlabel('Time')
+        self.ax2.plot(np.linspace(0, 1, self.H_CROP[0].shape[0]), self.H_CROP[0])
+        self.ax2.plot(np.linspace(0, 1, self.H_CROP[0].shape[0]), MF.fun_exp(np.linspace(0, 1, self.H_CROP[0].shape[0]), *self.POPT[0]), 'r-')
+        plt.subplots_adjust(bottom=0.18)
+
+        self.ax1prev = plt.axes([0.30, 0.05, 0.060, 0.060])
+        self.ax1next = plt.axes([0.38, 0.05, 0.060, 0.060])
+        self.bnext1 = Button(self.ax1next, 'Next')
+        self.bprev1 = Button(self.ax1prev, 'Prev')
+        self.bnext1.on_clicked(self.next1)
+        self.bprev1.on_clicked(self.prev1)
+
+    def next1(self, event):
+        self.ax1.axes.clear()
+        self.ax1.axes.grid(b=True)
+        self.ax2.axes.clear()
+        self.ax2.axes.grid(b=True)
+        self.index1 += 1
+        i = self.index1 % self.Nmodes
+        self.ax1.set_title("Sistema de un grado de libertad del modo:" + str(i))
+        self.ax1.plot(np.linspace(0, 1, len(self.SDOF_T[i])), self.SDOF_T[i].real)
+        self.ax2.plot(np.linspace(0, 1, self.H_CROP[i].shape[0]), self.H_CROP[i])
+        self.ax2.plot(np.linspace(0, 1, self.H_CROP[i].shape[0]), MF.fun_exp(np.linspace(0, 1, self.H_CROP[i].shape[0]), *self.POPT[i]), 'r-')
+        plt.draw()
+
+    def prev1(self, event):
+        self.ax1.axes.clear()
+        self.ax1.axes.grid(b=True)
+        self.ax2.axes.clear()
+        self.ax2.axes.grid(b=True)
+        self.index1 -= 1
+        i = self.index1 % self.Nmodes
+        self.ax1.set_title("Sistema de un grado de libertad del modo:" + str(i))
+        self.ax1.plot(np.linspace(0, 1, len(self.SDOF_T[i])), self.SDOF_T[i].real)
+        self.ax2.plot(np.linspace(0, 1, self.H_CROP[i].shape[0]), self.H_CROP[i])
+        self.ax2.plot(np.linspace(0, 1, self.H_CROP[i].shape[0]), MF.fun_exp(np.linspace(0, 1, self.H_CROP[i].shape[0]), *self.POPT[i]), 'r-')
+        plt.draw()
