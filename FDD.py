@@ -19,11 +19,11 @@ def main():
     # #Variables de muestreo
     low_fc = 0.05                                 #Frecuencia de corte (Bajo)
     high_fc = 4                                   #Frecuencia de corte (Alto)
-    fs = 50                                       #Frecuencia de muestreo
+    fs = 10                                       #Frecuencia de muestreo
 
     #El archivo de datos debe contener en su primera columna el tiempo y las demas columnas los canales
-#    Data = pd.read_csv('Sample record 12 channels - sampling frequency 10 Hz.csv', header=None)
-    Data = pd.read_csv('Data02_harvard_3_channels_50hz.csv', header=None)
+    Data = pd.read_csv('Sample record 12 channels - sampling frequency 10 Hz.csv', header=None)
+#    Data = pd.read_csv('Data02_harvard_3_channels_50hz.csv', header=None)
     Time = np.array(Data.iloc[:, 0])
     per_segmen = int(len(Time) * 0.10)
     n_overlap = (per_segmen * 0.5)
@@ -117,7 +117,6 @@ def main():
     Hilbert = GP.EFDDPlot(nfig=7, sdof_t=SDOF_T, h_cr=h_crop, popt=popt)
     Hilbert.enhanced_plot()
 
-
 # Imprimir las formal modales en el plano complejo
     Plot_FormasModales = GP.Add_Buttons(ax=4, xbuffer=np.angle(MS_Normalizados), ybuffer=np.absolute(MS_Normalizados), name="Formas Modales ")   #### para polares se debe pasar en formato de angulo y magnitud los datos
     Plot_FormasModales.define_polar()
@@ -129,6 +128,19 @@ def main():
 # Imprimir los Modal Assurance Criterion
     Modal_assurance = GP.Mac3dplot(nfig=6, ms1=MS_Normalizados, ms2=MS_Normalizados)
     Modal_assurance.macplot()
+
+# Creacion del DataFrame
+    Data_Collect = pd.DataFrame({
+        "Frq": SCAT[:, 0],
+        "Amp": 20*np.log10(SCAT[:, 1]),
+        "Dam": [x[0] for x in popt]
+    }) 
+
+    Mode_Shape = pd.DataFrame(MS_Normalizados)
+    
+    print(Data_Collect.head())
+    print(Mode_Shape.head())
+
 
 # Iniciar a graficar todas las graficas
 #Se volvio a poner la figura 2 pero en este caso se usa para mostrar los picos
