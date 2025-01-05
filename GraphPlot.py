@@ -23,14 +23,14 @@ class Add_Buttons:
     def define_polar(self):
         plt.figure(self.figNumber)
         self.ax1 = plt.subplot(1, 2, 1, projection='polar')
-        self.ax1.grid(b=True)
+        self.ax1.grid()
         self.ax1.set_title(self.Name + str(self.index1))
         self.ax1.set_xlabel("R")
         self.ax1.set_ylabel("Pha", horizontalalignment='right')
         for x in range (self.ydata.shape[1]):
             self.ax1.plot(self.xdata[self.index1,x], self.ydata[self.index1,x], 'o')    ####xdata serian los angulos, ydata la magnitud ###Plot en polar toma radianes como datos de entrada
         self.ax2 = plt.subplot(1, 2, 2, projection= 'polar')
-        self.ax2.grid(b=True)
+        self.ax2.grid()
         self.ax2.set_title(self.Name + str(self.index2))
         self.ax2.set_xlabel("R")
         self.ax2.set_ylabel("Pha", horizontalalignment='right')
@@ -55,11 +55,11 @@ class Add_Buttons:
     def define_Cartesina(self):
         plt.figure(self.figNumber)
         self.ax1 = plt.subplot(1, 2, 1)
-        self.ax1.grid(b=True)
+        self.ax1.grid()
         self.ax1.set_title(self.Name + str(self.index1))
         self.ax1.plot(self.xdata, self.ydata[:,self.index1])
         self.ax2 = plt.subplot(1, 2, 2)
-        self.ax2.grid(b=True)
+        self.ax2.grid()
         self.ax2.set_title(self.Name + str(self.index2))
         self.ax2.plot(self.xdata, self.ydata[:,self.index2])
         plt.subplots_adjust(bottom=0.18)
@@ -80,7 +80,7 @@ class Add_Buttons:
 
     def next1(self, event):
         self.ax1.axes.clear()
-        self.ax1.axes.grid(b=True)
+        self.ax1.axes.grid()
         self.index1 += 1
         i = self.index1 % self.Nchannel
         self.ax1.set_title(self.Name + str(i))
@@ -89,7 +89,7 @@ class Add_Buttons:
 
     def prev1(self, event):
         self.ax1.axes.clear()
-        self.ax1.axes.grid(b=True)
+        self.ax1.axes.grid()
         self.index1 -= 1
         i = self.index1 % self.Nchannel
         self.ax1.set_title(self.Name + str(i))
@@ -98,7 +98,7 @@ class Add_Buttons:
 
     def next2(self, event):
         self.ax2.axes.clear()
-        self.ax2.axes.grid(b=True)
+        self.ax2.axes.grid()
         self.index2 += 1
         i = self.index2 % self.Nchannel
         self.ax2.set_title(self.Name + str(i))
@@ -107,7 +107,7 @@ class Add_Buttons:
 
     def prev2(self, event):
         self.ax2.axes.clear()
-        self.ax2.axes.grid(b=True)
+        self.ax2.axes.grid()
         self.index2 -= 1
         i = self.index2 % self.Nchannel
         self.ax2.set_title(self.Name + str(i))
@@ -116,7 +116,7 @@ class Add_Buttons:
 
     def nextpolar1(self, event):
         self.ax1.axes.clear()
-        self.ax1.grid(b=True)
+        self.ax1.grid()
         self.index1 += 1
         i = self.index1 % self.ydata.shape[0]
         self.ax1.set_title(self.Name + str(i))
@@ -126,7 +126,7 @@ class Add_Buttons:
 
     def prevpolar1(self, event):
         self.ax1.axes.clear()
-        self.ax1.grid(b=True)
+        self.ax1.grid()
         self.index1 -= 1
         i = self.index1 % self.ydata.shape[0]
         self.ax1.set_title(self.Name + str(i))
@@ -136,7 +136,7 @@ class Add_Buttons:
 
     def nextpolar2(self, event):
         self.ax2.axes.clear()
-        self.ax2.grid(b=True)
+        self.ax2.grid()
         self.index2 += 1
         i = self.index2 % self.ydata.shape[0]
         self.ax2.set_title(self.Name + str(i))
@@ -146,7 +146,7 @@ class Add_Buttons:
 
     def prevpolar2(self, event):
         self.ax2.axes.clear()
-        self.ax2.grid(b=True)
+        self.ax2.grid()
         self.index2 -= 1
         i = self.index2 % self.ydata.shape[0]
         self.ax2.set_title(self.Name + str(i))
@@ -173,9 +173,9 @@ class Coherplot:
         self.ax1 = fig.add_subplot(gs[0, :])
         self.ax2 = fig.add_subplot(gs[1,0])
         self.ax3 = fig.add_subplot(gs[1,1])
-        self.ax1.grid(b=True)
-        self.ax2.grid(b=True)
-        self.ax3.grid(b=True)
+        self.ax1.grid()
+        self.ax2.grid()
+        self.ax3.grid()
 
         self.ax1.set_title("Coherencia Magnitud cuadratica entre Auto PSD Canales: " + str(self.index1) + " y " + str(self.index2))
         self.ax1.plot(self.Freq[0, 0, :], self.coh[0, 0, :])
@@ -255,12 +255,12 @@ class Coherplot:
     def next1(self, event):
         self.ax1.axes.clear()
         self.ax2.axes.clear()
-        self.ax2.axes.grid(b=True)
+        self.ax2.axes.grid()
         self.index1 += 1
         if self.index1 == self.Nchannel: self.index1 = 0
         i = self.index1 % self.Nchannel
         i2 = self.index2 % self.Nchannel
-        self.ax1.grid(b=True)
+        self.ax1.grid()
         self.ax1.set_title("Coherencia Magnitud cuadratica entre Auto PSD Canales: " + str(self.index1) + " y " + str(self.index2))
         self.ax1.plot(self.Freq[0, 0, :], self.coh[i, i2, :])
 
@@ -271,12 +271,12 @@ class Coherplot:
     def prev1(self, event):
         self.ax1.axes.clear()
         self.ax2.axes.clear()
-        self.ax2.axes.grid(b=True)
+        self.ax2.axes.grid()
         self.index1 -= 1
         if self.index1 == -self.Nchannel: self.index1 = 0
         i = self.index1 % self.Nchannel
         i2 = self.index2 % self.Nchannel
-        self.ax1.grid(b=True)
+        self.ax1.grid()
         self.ax1.set_title("Coherencia Magnitud cuadratica entre Auto PSD Canales: " + str(self.index1) + " y " + str(self.index2))
         self.ax1.plot(self.Freq[0, 0, :], self.coh[i, i2, :])
         self.ax2.set_title("Auto Densidad Espectral canal %d" % i)
@@ -286,12 +286,12 @@ class Coherplot:
     def next2(self, event):
         self.ax1.axes.clear()
         self.ax3.axes.clear()
-        self.ax3.axes.grid(b=True)
+        self.ax3.axes.grid()
         self.index2 += 1
         if self.index2 == self.Nchannel: self.index2 = 0
         i = self.index2 % self.Nchannel
         i2 = self.index1 % self.Nchannel
-        self.ax1.grid(b=True)
+        self.ax1.grid()
         self.ax1.set_title("Coherencia Magnitud cuadratica entre Auto PSD Canales: " + str(self.index1) + " y " + str(self.index2))
         self.ax1.plot(self.Freq[0, 0, :], self.coh[i2, i, :])
         self.ax3.set_title("Auto Densidad Espectral canal %d" % i)
@@ -301,12 +301,12 @@ class Coherplot:
     def prev2(self, event):
         self.ax1.axes.clear()
         self.ax3.axes.clear()
-        self.ax3.axes.grid(b=True)
+        self.ax3.axes.grid()
         self.index2 -= 1
         if self.index2 == -self.Nchannel: self.index2 = 0
         i = self.index2 % self.Nchannel
         i2 = self.index1 % self.Nchannel
-        self.ax1.grid(b=True)
+        self.ax1.grid()
         self.ax1.set_title("Coherencia Magnitud cuadratica entre Auto PSD Canales: " + str(self.index1) + " y " + str(self.index2))
         self.ax1.plot(self.Freq[0, 0, :], self.coh[i2, i, :])
         self.ax3.set_title("Auto Densidad Espectral canal %d" % i)
@@ -359,13 +359,13 @@ class EFDDPlot:
     def enhanced_plot(self):
         plt.figure(self.Nfig)
         self.ax1 = plt.subplot(1, 2, 1)
-        self.ax1.grid(b=True)
+        self.ax1.grid()
         self.ax1.set_title("Sistema de un grado de libertad del modo:" + str(self.index1))
         self.ax1.set_ylabel('A')
         self.ax1.set_xlabel('Time')
         self.ax1.plot(np.linspace(0, 1, len(self.SDOF_T[0])), self.SDOF_T[0].real)
         self.ax2 = plt.subplot(1, 2, 2)
-        self.ax2.grid(b=True)
+        self.ax2.grid()
         self.ax2.set_title("Aproximacion de la curva de Hilbert por Decremento logaritmico")
         self.ax2.set_ylabel('A')
         self.ax2.set_xlabel('Time')
@@ -382,9 +382,9 @@ class EFDDPlot:
 
     def next1(self, event):
         self.ax1.axes.clear()
-        self.ax1.axes.grid(b=True)
+        self.ax1.axes.grid()
         self.ax2.axes.clear()
-        self.ax2.axes.grid(b=True)
+        self.ax2.axes.grid()
         self.index1 += 1
         i = self.index1 % self.Nmodes
         self.ax1.set_title("Sistema de un grado de libertad del modo:" + str(i))
@@ -395,9 +395,9 @@ class EFDDPlot:
 
     def prev1(self, event):
         self.ax1.axes.clear()
-        self.ax1.axes.grid(b=True)
+        self.ax1.axes.grid()
         self.ax2.axes.clear()
-        self.ax2.axes.grid(b=True)
+        self.ax2.axes.grid()
         self.index1 -= 1
         i = self.index1 % self.Nmodes
         self.ax1.set_title("Sistema de un grado de libertad del modo:" + str(i))

@@ -20,17 +20,17 @@ All thanks and credits for Rainieri, C., & Fabbrocino, G. (2014) by the
 FDD algorithm and .txt example data file. Without the relevant information and comparison among computed data and data stated on the book it wouldn't have been possible.
 
 
-The scripts were developed using PyCharm Community 2020.2 under the following environment: 
+Last test (05/January/2025):
 
-Python Version 3.7
+Python Version 3.11.2
 
-scipy	1.5.3
+scipy	1.15.0
 
-numpy	1.19.2  (Please be aware that certains new versions of numpy could have problems with PyCharm Environments)
+numpy	1.26.4
 
-pandas	1.1.3
+pandas	2.2.1
 
-matplotlib	3.3.2.
+matplotlib	3.10.0
 
 
 Any further questions please reach me out by email: 

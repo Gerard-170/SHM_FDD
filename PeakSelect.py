@@ -99,7 +99,8 @@ class SelectPeaks:
         'on release we reset the press data'
         if ((self.dx or self.dy) != 0) and ((self.Button != 3) or (self.Button != 2)):
             self.Rects.append(patches.Rectangle((self.x_0, self.y_0), self.dx, self.dy, linewidth=2, edgecolor='r', linestyle='--',facecolor='none'))
-            self.figplot.patches = []
+            for draw_patches in self.figplot.patches:
+                draw_patches.remove()
             self.count = self.count + 1
             for x in self.Rects:
                 self.figplot.add_patch(x)
@@ -120,7 +121,8 @@ class SelectPeaks:
         print(self.key)
         #el self.figplot.patches es una lista de todos los patches creados por el usuario. A medida que se crean aqui se van guardando
         if (len(self.figplot.patches) > 0) and ((self.dx != 0) or (self.dy != 0)):                          #Aqui compruebo si existe algun patches en la figura o no
-            self.figplot.patches.pop(len(self.figplot.patches)-1)
+            for draw_patches in self.figplot.patches:
+                draw_patches.remove()
             self.figplot.figure.canvas.draw_idle()
             self.dx = event.xdata - self.x_0
             self.dy = event.ydata - self.y_0
@@ -140,7 +142,9 @@ class SelectPeaks:
         if len(self.Rects) > 0:
             self.Rects.pop(len(self.Rects)-1)
             self.count = self.count - 1
-            self.figplot.patches.pop(len(self.figplot.patches) - 1)
+            #self.figplot.patches.pop(len(self.figplot.patches) - 1)
+            for draw_patches in self.figplot.patches:
+                draw_patches.remove()
             self.figplot.figure.canvas.draw_idle()
             print('Seleccion eliminada',len(self.figplot.patches),len(self.Rects),self.count)
         else: return
